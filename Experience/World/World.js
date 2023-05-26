@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import Experience from "../Experience";
 
 import Room from './Room';
+import Environment from './Enviroment';
 
 export default class World {
     constructor() {
@@ -10,8 +11,13 @@ export default class World {
         this.scene = this.experience.scene;
         this.canvas = this.experience.canvas;
         this.camera = this.experience.camera;
+        this.resources = this.experience.resources;
 
-        this.room = new Room();
+        this.resources.on('loaded', () => {
+            this.room = new Room();
+            console.log("created room");
+            this.environment = new Environment();
+        });
     }
 
     resize() {
