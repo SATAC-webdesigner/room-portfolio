@@ -17,7 +17,7 @@ export default class Times extends EventEmitter{
         this.current = now;
         this.elapsed = now - this.start;
 
-        this.emit('update');
+        this.emit("update");
         window.requestAnimationFrame(() => this.update());
     }
 }
