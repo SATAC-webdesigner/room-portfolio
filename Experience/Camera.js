@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import Experience from "./Experience";
 
 export default class Camera {
-    constructor(sizes) {
+    constructor() {
         this.experience = new Experience();
         this.sizes = this.experience.sizes;
         this.scene = this.experience.scene;
@@ -36,5 +36,21 @@ export default class Camera {
         );
 
         this.scene.add(this.OrthographicCamera);
+    }
+
+    resize() {
+        //updating prespective camera
+        this.PerspectiveCamera.aspect = this.sizes.aspect;
+        this.PerspectiveCamera.updateProjectionMatrix();
+
+        //updating orthographic camera
+        this.OrthographicCamera.left = (-this.sizes.aspect * this.frustrum) / 2;
+        this.OrthographicCamera.right = (this.sizes.aspect * this.frustrum) / 2;
+        this.OrthographicCamera.top = this.frustrum / 2;
+        this.OrthographicCamera.bottom = -this.frustrum / 2;
+        this.OrthographicCamera.updateProjectionMatrix();
+    }
+
+    update() {
     }
 }
