@@ -3,6 +3,7 @@ import Experience from "../Experience";
 
 import Room from './Room';
 import Environment from './Enviroment';
+import Controls from './Controls';
 
 export default class World {
     constructor() {
@@ -17,6 +18,7 @@ export default class World {
             this.room = new Room();
             console.log("created room");
             this.environment = new Environment();
+            this.controls = new Controls();
         });
     }
 
@@ -25,6 +27,12 @@ export default class World {
     }
 
     update() {
-        
+        if (this.room) {
+            this.room.update();
+        }
+
+        if (this.controls) {
+            this.controls.update();
+        }
     }
 }
