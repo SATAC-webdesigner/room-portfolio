@@ -40,7 +40,7 @@ export default class Camera {
         );
 
         this.orthographicCamera.position.z = 5;
-        this.orthographicCamera.position.y = 3.5;
+        this.orthographicCamera.position.y = 3.75;
 
         this.orthographicCamera.rotation.x = -Math.PI / 6;
 
@@ -62,7 +62,7 @@ export default class Camera {
     setOrbitControls() {
         this.controls = new OrbitControls(this.perspectiveCamera, this.canvas);
         this.controls.enableDamping = true;
-        this.controls.enableZoom =false;
+        this.controls.enableZoom = false;
     }
 
     resize() {
