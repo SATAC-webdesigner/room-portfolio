@@ -11,6 +11,12 @@ html, body{
   font-family: "Montserrat", sans-serif;
 }
 
+:root {
+  --text-black: #393a40;
+  --prymary-color: #f0f4fc;
+  --prymary-blue: #81b9de;
+}
+
 /* EXPERIENCE ------------------------------------------------------------------------ */
 
 .experience {
@@ -37,6 +43,27 @@ html, body{
   position: relative;
 }
 
+/* SECTION FORMATTING ---------------------------------------------------------------- */
+
+.section-margin {
+  height: 3000px;
+  width: 100%;
+}
+
+.section {
+  width: 50%;
+  padding: 1000px 4%;
+  margin: 0;
+  background-color: var(--prymary-color);
+}
+
+.left {
+  margin-right: auto;
+}
+
+.right {
+  margin-left: auto;
+}
 /* HERO SECTION ----------------------------------------------------------------------------- */
 
 .hero {
@@ -66,16 +93,16 @@ html, body{
 
 .hero-main-title {
   font-size: 52px;
-  color: #555;
+  color: var(--text-black);
 }
 
 .hero-main-description {
   font-size: 18px;
-  color: #555;
+  color: var(--text-black);
 }
 
 .hero-second-subheading {
   font-size: 36px;
-  color: #555;
+  color: var(--text-black);
   text-transform: uppercase;
 }
