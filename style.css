@@ -9,6 +9,7 @@
 
 html, body{
   font-family: "Montserrat", sans-serif;
+  color: var(--text-black);
 }
 
 :root {
@@ -43,6 +44,58 @@ html, body{
   position: relative;
 }
 
+/* TOGGLE BAR ------------------------------------------------------------------------------ */
+
+.toggle-bar {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 48px;
+  right: 48px;
+  z-index: 999999999999999999;
+}
+
+.sun-wrapper,
+.moon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toggle-button {
+  cursor: pointer;
+  position: relative;
+  width: 56px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--prymary-blue);
+  border-radius: 999px;
+  margin: 0px 16px;
+  border: none;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.toggle-circle {
+  position: absolute;
+  left: 6px;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  background-color: var(--prymary-color);
+  transition: all 0.2s ease-in-out;
+}
+
+.toggle-button:hover  .toggle-circle{
+  transform: scale(0.85);
+}
+
+.slide {
+  left: 30px;
+}
+
 /* SECTION FORMATTING ---------------------------------------------------------------- */
 
 .section-margin {
@@ -64,6 +117,84 @@ html, body{
 .right {
   margin-left: auto;
 }
+
+.section-intro-wrapper {
+  position: relative;
+  padding: 20% 5%;
+  border-bottom: 2px solid var(--prymary-blue);
+  padding-bottom: 400px;
+}
+
+.section-details-wrapper {
+  position: relative;
+  padding: 20% 5%;
+}
+
+.section-heading {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.8;
+  margin-top: 64px;
+}
+
+.section-text {
+  line-height: 2;
+  margin-top: 18px;
+  font-size: 16px;
+}
+
+/* FANCY DECORATION --------------------------------------------------------------------- */
+
+.section-title {
+  position: relative;
+  color: var(--prymary-blue);
+}
+
+.section-title-text {
+  font-size: 40px;
+  font-weight: 500;
+  transform-origin: left;
+  transform: skewY(25deg);
+  z-index: 5;
+  text-transform: uppercase;
+  display: block;
+}
+
+.styleOne,
+.styleTwo,
+.styleThree {
+  position: absolute;
+  display: block;
+  width: 100%;
+  max-width: 278px;
+  height: 60px;
+  border: 1px solid var(--prymary-blue);
+  transform-origin: left;
+  transform: skewY(-25deg);
+}
+
+.styleOne {
+  top: 0;
+}
+
+.styleTwo {
+  top: 80px;
+}
+
+.styleThree {
+  top: 80px;
+  transform: skewY(25deg);
+  background-color: var(--prymary-blue);
+}
+
+.section-number {
+  position: absolute;
+  bottom: 18px;
+  right: 0;
+  color: var(--prymary-blue);
+  font-size: 24px;
+}
+
 /* HERO SECTION ----------------------------------------------------------------------------- */
 
 .hero {
@@ -92,17 +223,14 @@ html, body{
 }
 
 .hero-main-title {
-  font-size: 52px;
-  color: var(--text-black);
+  font-size: 56px;
 }
 
 .hero-main-description {
   font-size: 18px;
-  color: var(--text-black);
 }
 
 .hero-second-subheading {
   font-size: 36px;
-  color: var(--text-black);
   text-transform: uppercase;
 }
