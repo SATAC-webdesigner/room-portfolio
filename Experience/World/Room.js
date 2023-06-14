@@ -55,12 +55,16 @@ export default class Room {
             if (child.name === "minifloor") {
                 child.position.set(-0.53409, -0.364799,4.22354);
             }
+            
+            child.scale.set(0,0,0);
 
-            if (child.name == "mailbox" || child.name == "floor_first" || child.name == "floor_second" || child.name == "floor_third"
-                    || child.name == "flower_1" || child.name == "flower_2" || child.name == "dirt" || child.name == "lamp") {
-                child.scale.set(0,0,0);
+            if (child.name === "animation_cube") {
+                child.position.set(0, -0.9, 0);
+                child.rotation.y = -Math.PI / 4;
             }
 
+            this.roomChildren[child.name.toLowerCase()] = child;
+            
         });
 
         this.scene.add(this.actualRoom);
@@ -69,14 +73,18 @@ export default class Room {
 
         //RectLight
 
-        const width = 0.4;
-        const height = 1.1;
+        // const width = 0.4;
+        // const height = 1.1;
+        const width = 0;
+        const height = 0;
         const intensity = 7;
         this.rectLight = new THREE.RectAreaLight(0xffffff, intensity, width, height);
         this.rectLight.position.set(3.8, 4.02018, -1.5);
         this.rectLight.rotation.x = -Math.PI / 2;
         this.rectLight.rotation.z = Math.PI / 4;
         this.actualRoom.add(this.rectLight);
+
+        this.roomChildren["rectlight"] = this.rectLight;
 
         //Circles
 
@@ -94,6 +102,10 @@ export default class Room {
         this.circleSecond.position.y = -1.28;
         this.circleThird.position.y = -1.27;
 
+        this.circleFirst.receiveShadow = true;
+        this.circleSecond.receiveShadow = true;
+        this.circleThird.receiveShadow = true;
+
         this.circleFirst.rotation.x = -Math.PI / 2;
         this.circleSecond.rotation.x = -Math.PI / 2;
         this.circleThird.rotation.x = -Math.PI / 2;
@@ -104,7 +116,7 @@ export default class Room {
 
         this.circleFirst.name = "Circle1";
         this.circleSecond.name = "Circle2";
-        this.circleThird.name = "Circle3"
+        this.circleThird.name = "Circle3";
 
         this.actualRoom.add(this.circleFirst);
         this.actualRoom.add(this.circleSecond);
@@ -125,9 +137,9 @@ export default class Room {
     }
 
     setAnimation() {
-        this.mixer = new THREE.AnimationMixer(this.actualRoom);
-        this.swim = this.mixer.clipAction(this.room.animations[7]);
-        this.swim.play();
+        // this.mixer = new THREE.AnimationMixer(this.actualRoom);
+        // this.swim = this.mixer.clipAction(this.room.animations[6]);
+        // this.swim.play();
     }
 
     onMouseMove() {
@@ -147,6 +159,6 @@ export default class Room {
 
         this.actualRoom.rotation.y = this.lerp.current;
 
-        this.mixer.update(this.time.delta * 0.0009);
+        // this.mixer.update(this.time.delta * 0.0009);
     }
 }

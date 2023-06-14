@@ -13,7 +13,6 @@ export default class Room {
         this.camera = this.experience.camera;
         this.room = this.experience.world.room.actualRoom;
         this.room.children.forEach((child) => {
-            console.log(child);
             if (child.type === "RectAreaLight") {
                 this.rectLight = child;
             }
@@ -30,6 +29,8 @@ export default class Room {
         this.sizes = this.experience.sizes;
 
         gsap.registerPlugin(ScrollTrigger);
+
+        document.querySelector(".page").style.overflow = "visible";
 
         if (
             !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -382,12 +383,21 @@ export default class Room {
 
                 this.room.children.forEach((child) => {
                     if (child.name == "minifloor") {
-                        this.first = gsap.to(child.position, {
+                        this.first = gsap.to(child.scale, {
+                            x: 1,
+                            z: 1,
+                            y: 1
+                        });
+                    }
+
+                    if (child.name == "minifloor") {
+                        this.firstTwo = gsap.to(child.position, {
                             x: -3.2397360801696777,
                             z: 6.929194450378418,
                             duration: 0.3
-                        })
+                        });
                     }
+
                     if (child.name == "mailbox")
                         this.second = gsap.to(child.scale, {
                             x: 1,
@@ -461,6 +471,7 @@ export default class Room {
                 });
 
                 this.secondPartTimeline.add(this.first);
+                this.secondPartTimeline.add(this.firstTwo);
                 this.secondPartTimeline.add(this.second);
                 this.secondPartTimeline.add(this.third);
                 this.secondPartTimeline.add(this.fourth, "-=0.2");
