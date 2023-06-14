@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import Experience from "../Experience";
 import GSAP from "gsap";
-import { RectAreaLightHelper } from 'three/addons/helpers/RectAreaLightHelper.js';
 
 export default class Room {
     constructor() {
@@ -12,6 +11,8 @@ export default class Room {
         this.room = this.resources.items.room;
         this.actualRoom = this.room.scene;
         this.roomChildren = {};
+        this.preloader = this.experience.preloader;
+        this.animateFish = false;
 
         this.lerp = {
             current: 0,
@@ -22,6 +23,10 @@ export default class Room {
         this.setModel();
         this.setAnimation();
         this.onMouseMove();
+
+        this.preloader.on("enablecontrols", () => {
+            this.animateFish = true;
+        })
     }
 
     setModel() {
@@ -137,9 +142,10 @@ export default class Room {
     }
 
     setAnimation() {
-        // this.mixer = new THREE.AnimationMixer(this.actualRoom);
-        // this.swim = this.mixer.clipAction(this.room.animations[6]);
-        // this.swim.play();
+        console.log(this.room.animations);
+        this.mixer = new THREE.AnimationMixer(this.actualRoom);
+        this.swim = this.mixer.clipAction(this.room.animations[6]);
+        this.swim.play();
     }
 
     onMouseMove() {
@@ -159,6 +165,8 @@ export default class Room {
 
         this.actualRoom.rotation.y = this.lerp.current;
 
-        // this.mixer.update(this.time.delta * 0.0009);
+        if (this.animateFish) {
+            this.mixer.update(this.time.delta * 0.0009);
+        }
     }
 }

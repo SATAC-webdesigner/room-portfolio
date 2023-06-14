@@ -197,6 +197,12 @@ export default class PreLoader extends EventEmitter {
                 z: 1,
                 ease: "back.out(2.2)",
                 duration: 0.5
+            }, "> -0.3").to(this.roomChildren.fish.scale, {
+                x: 1,
+                y: 1,
+                z: 1,
+                ease: "back.out(2.2)",
+                duration: 0.5
             }, "> -0.3").to(this.roomChildren.desks.scale, {
                 x: 1,
                 y: 1,
