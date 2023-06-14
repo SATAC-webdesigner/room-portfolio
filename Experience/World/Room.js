@@ -142,7 +142,6 @@ export default class Room {
     }
 
     setAnimation() {
-        console.log(this.room.animations);
         this.mixer = new THREE.AnimationMixer(this.actualRoom);
         this.swim = this.mixer.clipAction(this.room.animations[6]);
         this.swim.play();

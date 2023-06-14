@@ -248,10 +248,10 @@ export default class PreLoader extends EventEmitter {
             }, "chair").to(this.roomChildren.chair.rotation, {
                 y: 4 * Math.PI + Math.PI / 2,
                 ease: "power2.out",
-                duration: 1,
-                onComplete: resolve
+                duration: 1, 
             }, "chair").to(".arrow-svg-wrapper", {
-                opacity: 1
+                opacity: 1,
+                onComplete: resolve
             });
         });
     };
@@ -265,18 +265,17 @@ export default class PreLoader extends EventEmitter {
     }
 
     onTouch(e) {
-        this.initialY = e.touches[0].clientY;
+        this.initalY = e.touches[0].clientY
     }
 
     onTouchMove(e) {
         let currentY = e.touches[0].clientY;
-        let difference = this.initialY - currentY;
+        let difference = this.initalY - currentY;
         if (difference > 0) {
-            this.secondIntro()
             this.removeEventListeners();
-        };
-
-        this.initialY = null;
+            this.playSecondIntro();
+        }
+        this.intialY = null;
     }
 
     removeEventListeners() {
@@ -295,14 +294,14 @@ export default class PreLoader extends EventEmitter {
         window.addEventListener("wheel", this.scrollOnceEvent);
         window.addEventListener("touchstart", this.touchStart);
         window.addEventListener("touchmove", this.touchMove);
-        this.moveFlag = false;
     }
 
     async playSecondIntro() {
+        console.log("async play second");
+        this.moveFlag = false;
         await this.secondIntro();
         this.scaleFlag = false;
         this.emit("enablecontrols");
-
     }
 
     scale() {
