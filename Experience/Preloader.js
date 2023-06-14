@@ -1,6 +1,7 @@
 import { EventEmitter } from 'events';
 import Experience from './Experience';
 import { gsap } from 'gsap';
+import convert from "./Utils/convertDivsToSpans.js";
 
 export default class PreLoader extends EventEmitter {
     constructor() {
@@ -25,6 +26,11 @@ export default class PreLoader extends EventEmitter {
     }
 
     setAssets() {
+        convert(document.querySelector(".intro-text"));
+        convert(document.querySelector(".hero-main-title"));
+        convert(document.querySelector(".hero-main-description"));
+        convert(document.querySelector(".first-subheading"));
+        convert(document.querySelector(".second-subheading"));
         this.room = this.experience.world.room.actualRoom;
         this.roomChildren = this.experience.world.room.roomChildren;
     }
@@ -34,9 +40,16 @@ export default class PreLoader extends EventEmitter {
     firstIntro() {
         return new Promise((resolve) => {
             this.timeline = new gsap.timeline();
+            this.timeline.set(".animatedis", {y: 0, yPercent: 100});
 
             if (this.device === "desktop") {
-                this.timeline.to(this.roomChildren.animation_cube.scale, {
+                this.timeline.to(".preloader", {
+                    opacity: 0,
+                    delay: 1,
+                    onComplete: () => {
+                        document.querySelector(".preloader").classList.add("hidden");
+                    }
+                }).to(this.roomChildren.animation_cube.scale, {
                     x: 1.4,
                     z: 1.4,
                     y: 1.4,
@@ -46,10 +59,15 @@ export default class PreLoader extends EventEmitter {
                     x: -1,
                     ease: "power1.out",
                     duration: 0.7,
-                    onComplete: resolve
                 });
             } else {
-                this.timeline.to(this.roomChildren.animation_cube.scale, {
+                this.timeline.to(".preloader", {
+                    opacity: 0,
+                    delay: 1,
+                    onComplete: () => {
+                        document.querySelector(".preloader").classList.add("hidden");
+                    }
+                }).to(this.roomChildren.animation_cube.scale, {
                     x: 1.4,
                     z: 1.4,
                     y: 1.4,
@@ -59,16 +77,33 @@ export default class PreLoader extends EventEmitter {
                     z: -1,
                     ease: "power1.out",
                     duration: 0.7,
-                    onComplete: resolve
                 });
             }
+
+            this.timeline.to(".intro-text .animatedis", {
+                yPercent: 0,
+                stagger: 0.05,
+                ease: "back.out(1.7)",
+            }).to(".arrow-svg-wrapper", {
+                opacity: 1
+            }, "same").to(".toggle-bar", {
+                opacity: 1,
+                onComplete: resolve
+            }, "same");
         });
     };
 
     secondIntro() {
         return new Promise((resolve) => {
+
             this.secondTimeline = new gsap.timeline();
-            this.secondTimeline.to(this.room.position, {
+            this.secondTimeline.to(".intro-text .animatedis", {
+                yPercent: 100,
+                stagger: 0.05,
+                ease: "back.out(1.7)"
+            }).to(".arrow-svg-wrapper", {
+                opacity: 0
+            }).to(this.room.position, {
                 z: 0,
                 y: 0,
                 x: 0,
@@ -116,61 +151,77 @@ export default class PreLoader extends EventEmitter {
                 y: 0,
                 z: 0,
                 duration: 1
-            }).to(this.roomChildren.body_002.scale, {
+            }, "introtext").to(".hero-main-title .animatedis", {
+                yPercent: 0,
+                stagger: 0.07,
+                ease: "back.out(1.7)"
+            }, "introtext").to(".hero-main-description .animatedis", {
+                yPercent: 0,
+                stagger: 0.07,
+                ease: "back.out(1.7)"
+            }, "introtext").to(".first-subheading .animatedis", {
+                yPercent: 0,
+                stagger: 0.07,
+                ease: "back.out(1.7)"
+            }, "introtext").to(".second-subheading .animatedis", {
+                yPercent: 0,
+                stagger: 0.07,
+                ease: "back.out(1.7)"
+            }, "introtext").to(this.roomChildren.body_002.scale, {
                 x: 0,
                 y: 0,
                 z: 0,
                 ease: "back.out(2.2)",
-                duration: 0.5
-            }, "window").to(this.roomChildren.body_003.scale, {
+                duration: 1.5
+            }, "introtext").to(this.roomChildren.body_003.scale, {
                 x: 0,
                 y: 0,
                 z: 0,
                 ease: "back.out(2.2)",
-                duration: 0.5
-            }, "window").to(this.roomChildren.body_004.scale, {
+                duration: 1.5
+            }, "introtext").to(this.roomChildren.body_004.scale, {
                 x: 0,
                 y: 0,
                 z: 0,
                 ease: "back.out(2.2)",
-                duration: 0.5
-            }, "window").to(this.roomChildren.body_005.scale, {
+                duration: 1.5
+            }, "introtext").to(this.roomChildren.body_005.scale, {
                 x: 0,
                 y: 0,
                 z: 0,
                 ease: "back.out(2.2)",
-                duration: 0.5
-            }, "window").to(this.roomChildren.aquarium.scale, {
+                duration: 1.5
+            }, "introtext").to(this.roomChildren.aquarium.scale, {
                 x: 1,
                 y: 1,
                 z: 1,
                 ease: "back.out(2.2)",
                 duration: 0.5
-            }).to(this.roomChildren.desks.scale, {
+            }, "> -0.3").to(this.roomChildren.desks.scale, {
                 x: 1,
                 y: 1,
                 z: 1,
                 ease: "back.out(2.2)",
                 duration: 0.5
-            }).to(this.roomChildren.table_stuff.scale, {
+            }, "> -0.1").to(this.roomChildren.table_stuff.scale, {
                 x: 1,
                 y: 1,
                 z: 1,
                 ease: "back.out(2.2)",
                 duration: 0.5
-            }).to(this.roomChildren.computer.scale, {
+            }, "> -0.4").to(this.roomChildren.computer.scale, {
                 x: 1,
                 y: 1,
                 z: 1,
                 ease: "back.out(2.2)",
                 duration: 0.5
-            }).to(this.roomChildren.shelves.scale, {
+            }, "> -0.4").to(this.roomChildren.shelves.scale, {
                 x: 1,
                 y: 1,
                 z: 1,
                 ease: "back.out(2.2)",
                 duration: 0.5
-            }).to(this.roomChildren.clock.scale, {
+            }, "> -0.2").to(this.roomChildren.clock.scale, {
                 x: 1,
                 y: 1,
                 z: 1,
@@ -182,7 +233,7 @@ export default class PreLoader extends EventEmitter {
                 z: 1,
                 ease: "back.out(2.2)",
                 duration: 0.5
-            }).to(this.roomChildren.chair.scale, {
+            }, "> -0.3").to(this.roomChildren.chair.scale, {
                 x: 1,
                 y: 1,
                 z: 1,
@@ -193,7 +244,9 @@ export default class PreLoader extends EventEmitter {
                 ease: "power2.out",
                 duration: 1,
                 onComplete: resolve
-            }, "chair");
+            }, "chair").to(".arrow-svg-wrapper", {
+                opacity: 1
+            });
         });
     };
 
@@ -228,22 +281,22 @@ export default class PreLoader extends EventEmitter {
 
     async playIntro() {
         this.scaleFlag = true;
-        await this.firstIntro();
         this.moveFlag = true;
+        await this.firstIntro();
         this.scrollOnceEvent = this.onScroll.bind(this);
         this.touchStart = this.onTouch.bind(this);
         this.touchMove = this.onTouchMove.bind(this);
         window.addEventListener("wheel", this.scrollOnceEvent);
         window.addEventListener("touchstart", this.touchStart);
         window.addEventListener("touchmove", this.touchMove);
+        this.moveFlag = false;
     }
 
     async playSecondIntro() {
-        this.moveFlag = false;
         await this.secondIntro();
         this.scaleFlag = false;
         this.emit("enablecontrols");
-        
+
     }
 
     scale() {

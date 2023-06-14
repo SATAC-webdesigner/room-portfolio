@@ -29,7 +29,7 @@ export default class Room {
         this.sizes = this.experience.sizes;
 
         gsap.registerPlugin(ScrollTrigger);
-
+ 
         document.querySelector(".page").style.overflow = "visible";
 
         if (
@@ -112,7 +112,7 @@ export default class Room {
                         scrub: 0.6,
                         invalidateOnRefresh: true
                     }
-                });
+                })
 
                 this.firstMoveTimeline.fromTo(this.room.position, {
                     x: 0,

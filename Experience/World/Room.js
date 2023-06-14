@@ -124,7 +124,7 @@ export default class Room {
 
         //Floor
 
-        this.geometry = new THREE.PlaneGeometry(100, 100);
+        this.geometry = new THREE.PlaneGeometry(200, 200);
         this.material = new THREE.MeshStandardMaterial({ color: 0xffffff, side: THREE.BackSide });
         this.plane = new THREE.Mesh(this.geometry, this.material);
         this.actualRoom.add(this.plane);
